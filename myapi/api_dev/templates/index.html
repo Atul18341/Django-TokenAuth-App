@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home: Django Token Authentication App</title>
-</head>
-<body>
-    <h3>Welcome to Django Token Authentication App</h3>
+{% include "header.html" %}
+<body style="background-image:url('static/img/auth1.jpg');background-size:100% 700px">
+<div class="main">
+    <h2 align="center">Welcome to Django Token Authentication App</h2>
     <a href="{%url 'login' %}">Login</a>
-    <a href="{%url 'signup' %}">Register</a>
+    <a href="{%url 'signup' %}">Register</a></div>
+
 </body>
 </html>

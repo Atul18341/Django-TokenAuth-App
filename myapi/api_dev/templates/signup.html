@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% include "header.html" %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +6,7 @@
 </head>
 <body>
 {% block content %}
+<div class="main1" style="background-color:#d9fafa;padding:20px;margin:0% 8%;">
   <h2>Sign up</h2>
   <form method="post">
     {% csrf_token %}
@@ -24,6 +25,6 @@
     <button type="submit">Sign up</button>
   </form>
 {% endblock %}
-
+</div>
 </body>
 </html>

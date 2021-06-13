@@ -4,7 +4,10 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.shortcuts import render, redirect
-from django.contrib.messages import constants as messages
+from django.contrib import messages
+from rest_framework.authtoken.models import Token
+
+
 class Helloview(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -27,7 +30,7 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
-def login(request):
+def signin(request):
     if request.method == 'POST':
         form = AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
@@ -35,12 +38,13 @@ def login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
-                login(user)
-                messages.info(f"You are now logged in as {username}")
-                return redirect('homepage')
+                login(request,user)
+                token, _ = Token.objects.get_or_create(user=user)
+                messages.info(request,f"Token: {token}")
+
             else:
-                messages.error("Invalid username or password.")
+                messages.error(request,"Invalid username or password.")
         else:
-            messages.error(request, "Invalid username or password.")
+            messages.error(request,"Invalid username or password.")
     form=AuthenticationForm()
     return render(request,'login.html',{'form':form})
